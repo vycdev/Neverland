@@ -1,33 +1,73 @@
 #include "raylib.h"
 
-#define SCREEN_WIDTH (800)
-#define SCREEN_HEIGHT (450)
+
+#define SCREEN_WIDTH (1600)
+#define SCREEN_HEIGHT (900)
+#define GAME_NAME "Neverland"
+
+void Update();
+void Draw();
+
+Camera2D camera = { 0 };
+
+struct rectangle{int x, y, size;}player;
+
 
 int main(void)
 {
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Window title");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, GAME_NAME);
     SetTargetFPS(60);
+    player.x = SCREEN_WIDTH/2;
+    player.y = SCREEN_HEIGHT/2;
+    player.size = 50;
 
-    Texture2D texture = LoadTexture(ASSETS_PATH"test.png");
+
+    camera.target = (struct Vector2){ 0, 0 };
+    camera.offset = (struct Vector2){ 0, 0 };
+    camera.rotation= 0.0f;
+    camera.zoom = 1.0f;
 
     while (!WindowShouldClose())
     {
-        BeginDrawing();
-
-        ClearBackground(RAYWHITE);
-
-        const int texture_x = SCREEN_WIDTH / 2 - texture.width / 2;
-        const int texture_y = SCREEN_HEIGHT / 2 - texture.height / 2;
-        DrawTexture(texture, texture_x, texture_y, WHITE);
-
-        const char* text = "OMG! IT WORKS!";
-        const Vector2 text_size = MeasureTextEx(GetFontDefault(), text, 20, 1);
-        DrawText(text, SCREEN_WIDTH / 2 - text_size.x / 2, texture_y + texture.height + text_size.y + 10, 20, BLACK);
-
-        EndDrawing();
+        Update();
+        Draw();
     }
 
     CloseWindow();
 
     return 0;
+}
+
+void Update(){
+
+    // PLAYER MOVEMENT
+    if (IsKeyDown('W'))player.y-=5;
+    if (IsKeyDown('A'))player.x-=5;
+    if (IsKeyDown('S'))player.y+=5;
+    if (IsKeyDown('D'))player.x+=5;
+
+}
+
+void Draw2DGrid(){
+    for (int i = 0; i < SCREEN_WIDTH/100 + 1; i++)
+    {
+        DrawLine(i*100, 0, i*100, SCREEN_HEIGHT, LIGHTGRAY);
+    }
+    for (int i = 0; i < SCREEN_HEIGHT/100 + 1; i++)
+    {
+        DrawLine(0, i*100, SCREEN_WIDTH, i*100, LIGHTGRAY);
+    }
+}
+
+void Draw(){
+    BeginDrawing();
+    ClearBackground(WHITE);
+
+    BeginMode2D(camera);
+        DrawFPS(0,0);
+        Draw2DGrid();
+        DrawRectangle(player.x, player.y, player.size, player.size, RED);
+    EndMode2D();
+
+    EndDrawing();
 }
