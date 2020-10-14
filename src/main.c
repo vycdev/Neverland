@@ -3,6 +3,7 @@
 #include "headers/player.h"
 #include "headers/camera.h"
 #include "headers/debugger.h"
+#include "headers/playerhud.h"
 
 #define GAME_NAME "Neverland"
 
@@ -29,23 +30,26 @@ int main(void)
 }
 
 void Update(){
-    updateCamera();
-    updatePlayer();
-    updateDebugger();
-}
 
+    updatePlayer();
+    updateCamera();
+    updateHud();
+
+    updateDebugger();
+
+}
 
 void Draw(){
     BeginDrawing();
     ClearBackground(WHITE);
 
-    drawDebugger();
-
-    // 2D camera mode
     BeginMode2D(camera);
         DrawRectangle(-50, -50, 100, 100, BLUE);
         drawPlayer();
     EndMode2D();
+
+    drawDebugger();
+    drawHud();
 
     EndDrawing();
 }

@@ -9,7 +9,10 @@ void initPlayer(){
     player.y = -25;
     player.size = 50;
     player.speed = 5;
-
+    player.health = 100;
+    player.mana = 100;
+    player.maxHealth = 100;
+    player.maxMana = 100;
 }
 
 void updatePlayer(){

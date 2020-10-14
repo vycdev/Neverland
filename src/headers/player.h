@@ -6,7 +6,10 @@
 #define NEVERLAND_PLAYER_H
 
 typedef struct Rect{
-    int x, y, size, speed;
+    int x, y,
+        size, speed,
+        health, mana,
+        maxHealth, maxMana;
 } Rect;
 
 Rect player;
