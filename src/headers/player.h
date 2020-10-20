@@ -7,9 +7,11 @@
 
 typedef struct Rect{
     int x, y,
-        size, speed,
-        health, mana,
-        maxHealth, maxMana;
+        previousXY,
+        size, speed, speedMultiplier,
+        health, energy,
+        energyRegen, healthRegen,
+        maxHealth, maxEnergy;
 } Rect;
 
 Rect player;

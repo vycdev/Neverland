@@ -10,7 +10,6 @@
 void Update();
 void Draw();
 
-
 int main(void)
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, GAME_NAME);
@@ -30,13 +29,10 @@ int main(void)
 }
 
 void Update(){
-
     updatePlayer();
     updateCamera();
     updateHud();
-
     updateDebugger();
-
 }
 
 void Draw(){
@@ -44,7 +40,9 @@ void Draw(){
     ClearBackground(WHITE);
 
     BeginMode2D(camera);
-        DrawRectangle(-50, -50, 100, 100, BLUE);
+    DrawRectangle(-50, -150, 100, 100, BLUE);
+    DrawRectangle(-250, -150, 100, 100, GREEN);
+    DrawRectangle(150, -150, 100, 100, BLACK);
         drawPlayer();
     EndMode2D();
 

@@ -46,5 +46,6 @@ void drawDebugger(){
         DrawFPS(20, 20);
         DrawText(FormatText("x: %d", player.x), 20, 40, 20, DARKGREEN);
         DrawText(FormatText("y: %d", player.y), 20, 60, 20, DARKGREEN);
+        DrawText(FormatText("speed: %d", player.speed), 20, 80, 20, GREEN);
     }
 }
