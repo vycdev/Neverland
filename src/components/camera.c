@@ -13,7 +13,7 @@ void initCamera(){
 }
 void updateCamera(){
     // Camera following the player
-    camera.target = (struct Vector2){ (float)(player.x + (int)(player.size/2)), (float)(player.y + (int)(player.size/2)) };
+    camera.target = (struct Vector2){ (float)(player.position.x + (int)(player.size/2)), (float)(player.position.y + (int)(player.size/2)) };
 
     // Camera zoom controls
     camera.zoom += ((float)GetMouseWheelMove()*0.1f);

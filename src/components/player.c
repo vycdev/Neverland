@@ -1,13 +1,13 @@
 //
 // Created by Vycto on 14-Oct-20.
 //
-#include <stdio.h>
 #include "raylib.h"
+#include "raymath.h"
 #include "../headers/player.h"
 #include "../headers/reusableMethods.h"
 
-int calculatePlayerSpeed(int percentageMultiplier){
-    return (int)(deltaSpeed(player.speedMultiplier) + (deltaSpeed(player.speedMultiplier)*percentageMultiplier)/100);
+float calculatePlayerSpeed(int percentageMultiplier){
+    return ((float)deltaSpeed(player.speedMultiplier) + (float)(deltaSpeed(player.speedMultiplier)*percentageMultiplier)/100);
 }
 void consumeEnergyOnSprint(){
     player.energy -= deltaSpeed(player.speedMultiplier);
@@ -18,14 +18,16 @@ void playerRegen(){
 }
 
 void initPlayer(){
-    player.x = -25;
-    player.y = -25;
+    player.position.x = -25;
+    player.position.y = -25;
     player.previousXY = 0;
     player.size = 50;
     player.speed = 5;
-    player.speedMultiplier = 20;
-    player.health = 5000;
-    player.energy = 5000;
+    player.velocity.x = 0;
+    player.velocity.y = 0;
+    player.speedMultiplier = 25;
+    player.health = 10000;
+    player.energy = 10000;
     player.maxHealth = 10000;
     player.maxEnergy = 10000;
     player.energyRegen = 15;
@@ -34,16 +36,28 @@ void initPlayer(){
 
 void updatePlayer(){
     // PLAYER MOVEMENT
-    player.previousXY = player.x * player.y;
+    player.previousXY = (int)(player.position.x * player.position.y);
 
-    if (IsKeyDown('W'))player.y-=player.speed;
-    if (IsKeyDown('A'))player.x-=player.speed;
-    if (IsKeyDown('S'))player.y+=player.speed;
-    if (IsKeyDown('D'))player.x+=player.speed;
+    if(IsKeyPressed('W')) player.velocity.y -= 1;
+    if(IsKeyPressed('A')) player.velocity.x -= 1;
+    if(IsKeyPressed('S')) player.velocity.y += 1;
+    if(IsKeyPressed('D')) player.velocity.x += 1;
+
+    if(IsKeyReleased('W')) player.velocity.y += 1;
+    if(IsKeyReleased('A')) player.velocity.x += 1;
+    if(IsKeyReleased('S')) player.velocity.y -= 1;
+    if(IsKeyReleased('D')) player.velocity.x -= 1;
+
+
+    if(!(player.velocity.x == 0 && player.velocity.y == 0)){
+        player.position.x += (int)(Vector2Normalize(player.velocity).x * player.speed); // NOLINT(cppcoreguidelines-narrowing-conversions)
+        player.position.y += (int)(Vector2Normalize(player.velocity).y * player.speed); // NOLINT(cppcoreguidelines-narrowing-conversions)
+    }
+
     // PLAYER SPRINT
     if(IsKeyDown(KEY_LEFT_CONTROL) && player.energy > 0){
         player.speed = calculatePlayerSpeed(25);
-        if(player.previousXY != player.x * player.y)
+        if(player.previousXY != (int)(player.position.x * player.position.y))
             consumeEnergyOnSprint();
     }
     else {
@@ -59,9 +73,8 @@ void updatePlayer(){
     if(player.health > player.maxHealth) player.health = player.maxHealth;
     if(player.energy > player.maxEnergy) player.energy = player.maxEnergy;
 
-    printf("%d\n", deltaSpeed(10));
 }
 
 void drawPlayer(){
-    DrawRectangle(player.x, player.y, player.size, player.size, RED);
+    DrawRectangle((int)player.position.x, (int)player.position.y, player.size, player.size, RED);
 }

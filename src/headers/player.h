@@ -6,12 +6,12 @@
 #define NEVERLAND_PLAYER_H
 
 typedef struct Rect{
-    int x, y,
-        previousXY,
-        size, speed, speedMultiplier,
+    int size, speedMultiplier,
         health, energy,
         energyRegen, healthRegen,
-        maxHealth, maxEnergy;
+        maxHealth, maxEnergy, previousXY;
+    Vector2 position ,velocity;
+    float speed;
 } Rect;
 
 Rect player;
