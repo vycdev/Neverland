@@ -47,5 +47,11 @@ void drawDebugger(){
         DrawText(FormatText("x: %d", player.x), 20, 40, 20, DARKGREEN);
         DrawText(FormatText("y: %d", player.y), 20, 60, 20, DARKGREEN);
         DrawText(FormatText("speed: %d", player.speed), 20, 80, 20, GREEN);
+        DrawText(FormatText("health: %d", player.health), 20, 100, 15, GREEN);
+        DrawText(FormatText("healthRegen: %d", player.healthRegen), 20, 115, 15, GREEN);
+        DrawText(FormatText("maxHealth: %d", player.maxHealth), 20, 130, 15, GREEN);
+        DrawText(FormatText("energy: %d", player.energy), 20, 145, 15, GREEN);
+        DrawText(FormatText("energyRegen: %d", player.energyRegen), 20, 160, 15, GREEN);
+        DrawText(FormatText("maxEnergy: %d", player.maxEnergy), 20, 175, 15, GREEN);
     }
 }

@@ -9,7 +9,7 @@ set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # or games
 
 add_subdirectory(libs/raylib)
 
-add_executable(raylib_template src/main.c src/headers/player.h src/components/player.c src/components/camera.c src/headers/camera.h src/headers/debugger.h src/components/debugger.c src/components/playerhud.c src/headers/playerhud.h)
+add_executable(raylib_template src/main.c src/headers/player.h src/components/player.c src/components/camera.c src/headers/camera.h src/headers/debugger.h src/components/debugger.c src/components/playerhud.c src/headers/playerhud.h src/headers/reusableMethods.h src/components/reusableMethods.c)
 target_link_libraries(raylib_template PRIVATE raylib)
 target_compile_definitions(raylib_template PUBLIC ASSETS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets/") # Set the asset path macro to the absolute path on the dev machine
 #target_compile_definitions(raylib_template PUBLIC ASSETS_PATH="relative-path-to-assets-in-the-game-package") # Set the asset path macro in release more
