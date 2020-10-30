@@ -3,7 +3,7 @@
 //
 
 #include "raylib.h"
-#include "../headers/reusableMethods.h"
+#include "../headers/methods.h"
 
 int deltaSpeed(int velocity){
     if(GetFPS() == 0) return 0;

@@ -4,7 +4,9 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "../headers/player.h"
-#include "../headers/reusableMethods.h"
+#include "../headers/methods.h"
+#include "../headers/abilities.h"
+
 
 float calculatePlayerSpeed(int percentageMultiplier){
     return ((float)deltaSpeed(player.speedMultiplier) + (float)(deltaSpeed(player.speedMultiplier)*percentageMultiplier)/100);
@@ -20,7 +22,6 @@ void playerRegen(){
 void initPlayer(){
     player.position.x = -25;
     player.position.y = -25;
-    player.previousXY = 0;
     player.size = 50;
     player.speed = 5;
     player.velocity.x = 0;
@@ -36,7 +37,6 @@ void initPlayer(){
 
 void updatePlayer(){
     // PLAYER MOVEMENT
-    player.previousXY = (int)(player.position.x * player.position.y);
 
     if(IsKeyPressed('W')) player.velocity.y -= 1;
     if(IsKeyPressed('A')) player.velocity.x -= 1;
@@ -48,16 +48,25 @@ void updatePlayer(){
     if(IsKeyReleased('S')) player.velocity.y -= 1;
     if(IsKeyReleased('D')) player.velocity.x -= 1;
 
-
     if(!(player.velocity.x == 0 && player.velocity.y == 0)){
         player.position.x += (int)(Vector2Normalize(player.velocity).x * player.speed); // NOLINT(cppcoreguidelines-narrowing-conversions)
         player.position.y += (int)(Vector2Normalize(player.velocity).y * player.speed); // NOLINT(cppcoreguidelines-narrowing-conversions)
     }
 
+    // ABILITIES
+    if(IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && player.cooldowns.ability1 == 0 && (player.velocity.x !=0 || player.velocity.y !=0)){
+        Dash(1, 25);
+        player.cooldowns.ability1 = 5;
+    }
+
+    if(player.cooldowns.ability1 > 0) player.cooldowns.ability1 -= GetFrameTime();
+    if(player.cooldowns.ability1 < 0) player.cooldowns.ability1 = 0;
+
+
     // PLAYER SPRINT
     if(IsKeyDown(KEY_LEFT_CONTROL) && player.energy > 0){
-        player.speed = calculatePlayerSpeed(25);
-        if(player.previousXY != (int)(player.position.x * player.position.y))
+        player.speed = calculatePlayerSpeed(player.speedMultiplier);
+        if(player.velocity.x !=0 || player.velocity.y !=0)
             consumeEnergyOnSprint();
     }
     else {

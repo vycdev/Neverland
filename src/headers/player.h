@@ -5,12 +5,17 @@
 #ifndef NEVERLAND_PLAYER_H
 #define NEVERLAND_PLAYER_H
 
+typedef struct Cooldowns{
+    float ability1;
+} Cooldowns;
+
 typedef struct Rect{
     int size, speedMultiplier,
         health, energy,
         energyRegen, healthRegen,
-        maxHealth, maxEnergy, previousXY;
+        maxHealth, maxEnergy;
     Vector2 position ,velocity;
+    Cooldowns cooldowns;
     float speed;
 } Rect;
 

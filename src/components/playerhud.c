@@ -19,6 +19,9 @@ void drawHealth(){
     DrawText(FormatText("%d/%d",player.health/100,player.maxHealth/100), SCREEN_WIDTH/5 + 10,SCREEN_HEIGHT - 2*SCREEN_HEIGHT/25 - 14, 16, WHITE);
 }
 
+void drawAbilitiesCooldowns(){
+    DrawText(FormatText("Dash: %.2fs", player.cooldowns.ability1), 100, SCREEN_HEIGHT - 40, 20, BLACK);
+}
 
 void updateHud(){
 
@@ -27,4 +30,5 @@ void updateHud(){
 void drawHud(){
     drawMana();
     drawHealth();
+    drawAbilitiesCooldowns();
 }
