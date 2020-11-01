@@ -5,7 +5,8 @@
 #include "raymath.h"
 #include "../headers/player.h"
 #include "../headers/methods.h"
-#include "../headers/abilities.h"
+#include "../headers/items.h"
+#include <stdio.h>
 
 
 float calculatePlayerSpeed(int percentageMultiplier){
@@ -17,6 +18,13 @@ void consumeEnergyOnSprint(){
 void playerRegen(){
     player.health += deltaSpeed(player.healthRegen);
     player.energy += deltaSpeed(player.energyRegen);
+}
+
+void initInventory(){
+    for(int i = 0; i<=29; i++){
+        player.inventory[i].amount = 0;
+        player.inventory[i].item = items[0];
+    }
 }
 
 void initPlayer(){
@@ -33,6 +41,9 @@ void initPlayer(){
     player.maxEnergy = 10000;
     player.energyRegen = 15;
     player.healthRegen = 15;
+    initInventory();
+    player.inventory[0].item = items[1];
+    player.inventory[0].amount = 1;
 }
 
 void updatePlayer(){
@@ -54,10 +65,11 @@ void updatePlayer(){
     }
 
     // ABILITIES
-
-
-
-
+    for(int i=0; i<=3; i++){
+        if(player.inventory[i].item.id != 0){
+            Execute(player.inventory[i].item.id);
+        }
+    }
 
     if(player.cooldowns.ability1 > 0) player.cooldowns.ability1 -= GetFrameTime();
     if(player.cooldowns.ability1 < 0) player.cooldowns.ability1 = 0;

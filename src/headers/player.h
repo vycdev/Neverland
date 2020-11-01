@@ -5,11 +5,18 @@
 #ifndef NEVERLAND_PLAYER_H
 #define NEVERLAND_PLAYER_H
 
+#include "items.h"
+
 typedef struct Cooldowns{
     float ability1;
 } Cooldowns;
 
-typedef struct Rect{
+typedef struct InventorySlot{
+    int amount;
+    Item item;
+} InventorySlot;
+
+typedef struct Player{
     int size, speedMultiplier,
         health, energy,
         energyRegen, healthRegen,
@@ -17,9 +24,11 @@ typedef struct Rect{
     Vector2 position ,velocity;
     Cooldowns cooldowns;
     float speed;
-} Rect;
+    InventorySlot inventory[29];
+} Player;
 
-Rect player;
+Player player;
+
 
 void initPlayer();
 void updatePlayer();

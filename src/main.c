@@ -16,6 +16,8 @@ int main(void)
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, GAME_NAME);
     SetTargetFPS(60);
 
+    initItems();
+
     initCamera();
     initPlayer();
 
