@@ -54,10 +54,10 @@ void updatePlayer(){
     }
 
     // ABILITIES
-    if(IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && player.cooldowns.ability1 == 0 && (player.velocity.x !=0 || player.velocity.y !=0)){
-        Dash(1, 25);
-        player.cooldowns.ability1 = 5;
-    }
+
+
+
+
 
     if(player.cooldowns.ability1 > 0) player.cooldowns.ability1 -= GetFrameTime();
     if(player.cooldowns.ability1 < 0) player.cooldowns.ability1 = 0;

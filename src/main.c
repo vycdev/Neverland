@@ -4,6 +4,7 @@
 #include "headers/camera.h"
 #include "headers/debugger.h"
 #include "headers/playerhud.h"
+#include "headers/items.h"
 
 #define GAME_NAME "Neverland"
 
