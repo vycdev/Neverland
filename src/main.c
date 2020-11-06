@@ -20,6 +20,7 @@ int main(void)
 
     initCamera();
     initPlayer();
+    initHud();
 
     while (!WindowShouldClose())
     {

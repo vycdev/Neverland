@@ -7,5 +7,6 @@
 
 void updateHud();
 void drawHud();
+void initHud();
 
 #endif //NEVERLAND_PLAYERHUD_H
